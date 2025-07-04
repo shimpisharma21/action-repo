@@ -1,0 +1,24 @@
+name: Emit Webhook
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened]
+
+jobs:
+  emit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Emit Webhook
+        run: |
+          curl -X POST https://your-flask-host/webhook \
+          -H "Content-Type: application/json" \
+          -d '{
+            "request_id": "${{ github.sha }}",
+            "author": "${{ github.actor }}",
+            "action": "PUSH",
+            "from_branch": "main",
+            "to_branch": "main"
+          }'
