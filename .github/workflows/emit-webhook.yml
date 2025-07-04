@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    types: [opened]
+    types: [opened, closed]
 
 jobs:
   emit:
@@ -13,12 +13,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Emit Webhook
         run: |
-          curl -X POST https://your-flask-host/webhook \
+          curl -X POST https://9d5f581e-c570-4717-bc1a-95a36a90e932-00-1xcajxkbt1emi.sisko.replit.dev/
           -H "Content-Type: application/json" \
           -d '{
             "request_id": "${{ github.sha }}",
             "author": "${{ github.actor }}",
-            "action": "PUSH",
+            "action": "${{ github.event_name }}",
             "from_branch": "main",
             "to_branch": "main"
           }'
