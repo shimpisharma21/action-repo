@@ -13,7 +13,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Emit Webhook
         run: |
-          curl -X POST https://9d5f581e-c570-4717-bc1a-95a36a90e932-00-lxcajxkbt1emi.sisko.replit.dev/webhook \
+          curl -X POST https://python-template--shimpisharma2001.repl.co/webhook
+
           -H "Content-Type: application/json" \
           -d '{"request_id": "'"${{ github.sha }}"'", "author": "'"${{ github.actor }}"'", "action": "'"${{ github.event_name }}"'", "from_branch": "main", "to_branch": "main"}'
       
