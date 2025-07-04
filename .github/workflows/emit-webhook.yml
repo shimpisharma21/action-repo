@@ -2,19 +2,19 @@ name: Emit Webhook
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    types: [opened, closed]
+    types: [ opened, closed ]
 
 jobs:
   emit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Emit Webhook
-        run: |
-          curl -X POST https://python-template--shimpisharma2001.repl.co/webhook
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-          -H "Content-Type: application/json" \
-          -d '{"request_id": "'"${{ github.sha }}"'", "author": "'"${{ github.actor }}"'", "action": "'"${{ github.event_name }}"'", "from_branch": "main", "to_branch": "main"}'
-      
+      - name: Send Webhook
+        run: |
+          curl -X POST https://96cdc1a5-9f5d-4901-9a74-6b9869819575-00-1ai9xed5h86bx.pike.replit.dev/webhook \
+            -H "Content-Type: application/json" \
+            -d "{\"request_id\":\"${GITHUB_SHA}\",\"author\":\"${GITHUB_ACTOR}\",\"action\":\"${GITHUB_EVENT_NAME}\"}"
