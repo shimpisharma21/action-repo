@@ -15,6 +15,16 @@ jobs:
 
       - name: Send Webhook
         run: |
-          curl -X POST https://96cdc1a5-9f5d-4901-9a74-6b9869819575-00-1ai9xed5h86bx.pike.replit.dev/webhook \
+          # detect event type & branches
+          EVENT="${GITHUB_EVENT_NAME}"                      # "push" or "pull_request"
+          PR_ACTION="${{ github.event.action }}"            # "opened" or "closed"
+          TO_BRANCH="${GITHUB_REF##*/}"                     # e.g. "main"
+          FROM_BRANCH=""
+          if [ "$EVENT" = "pull_request" ]; then
+            FROM_BRANCH="${{ github.event.pull_request.head.ref }}"
+          fi
+
+          # build JSON and POST
+          curl -X POST https://<your-repl-url>/webhook \
             -H "Content-Type: application/json" \
-            -d "{\"request_id\":\"${GITHUB_SHA}\",\"author\":\"${GITHUB_ACTOR}\",\"action\":\"${GITHUB_EVENT_NAME}\"}"
+            -d "{\"event_type\":\"$EVENT\",\
