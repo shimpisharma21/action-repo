@@ -25,6 +25,6 @@ jobs:
           fi
 
           # build JSON and POST
-          curl -X POST https://<your-repl-url>/webhook \
+          curl -X POST https://96cdc1a5-9f5d-4901-9a74-6b9869819575-00-1ai9xed5h86bx.pike.replit.dev/webhook \
             -H "Content-Type: application/json" \
             -d "{\"event_type\":\"$EVENT\",\
